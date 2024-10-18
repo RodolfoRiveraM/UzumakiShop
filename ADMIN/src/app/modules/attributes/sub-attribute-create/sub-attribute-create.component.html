@@ -1,0 +1,120 @@
+<!--begin::Modal content CREATE-->
+<div class="modal-content">
+    <!--begin::Modal header-->
+    <div class="modal-header" id="kt_modal_add_user_header">
+        <!--begin::Modal title-->
+        <h2 class="fw-bolder">Add Properties : {{ attribute.name }}</h2>
+        
+        <!--end::Modal title-->
+        <!--begin::Close-->
+        <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close" (click)="modal.dismiss()">
+            <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+            <span class="svg-icon svg-icon-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                    <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
+                </svg>
+            </span>
+            <!--end::Svg Icon-->
+        </div>
+        <!--end::Close-->
+    </div>
+    <!--end::Modal header-->
+    <!--begin::Modal body-->
+    <div class="modal-body scroll-y mx-5 my-7">
+        <!--begin::Form-->
+        <form id="kt_modal_add_user_form" class="form" action="#">
+             <!--begin::Scroll-->
+            <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
+                <!--begin::Input group-->
+                <div class="fv-row mb-7">
+                    <!--begin::Label-->
+                    <label class="required fw-bold fs-6 mb-2">Nombre del Propertie : </label>
+                    <!--end::Label-->
+                    <!--begin::Input-->
+                    <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Atributo" [(ngModel)]="name" />
+                    <!--end::Input-->
+                </div>
+            </div>
+            <!--end::Scroll-->
+            <div class="fv-row row mb-7 align-items-center">
+                <div class="col-lg-6 col-12">
+                    <label class="required fw-bold fs-6 mb-2">Selec. un Tipo</label>
+                    <select
+                        class="form-control form-select-solid fw-bolder"
+                        name="XXXXX"
+                        placeholder="Select"
+                        [(ngModel)]="type_action"
+                    >
+                        <option value="1">Normal</option>
+                        <option value="2">Color</option>
+                    </select>
+                </div>
+                <div class="col-lg-6 col-12" *ngIf="type_action == 2">
+                    <label for="etiqueta_especial" class="required fw-bold fs-6 mb-2">Color: </label>
+                    <input class="form-control" type="color" id="color" name="color" [(ngModel)]="color" />
+                </div>
+            </div>
+
+            <div class="fv-row row mb-7" >
+                <div class="col-6">
+                    <button type="button" (click)="store()" class="btn btn-primary" data-kt-users-modal-action="submit">
+                        <span class="indicator-label">Registrar</span>
+    
+                        <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
+                        <!-- <span class="indicator-progress">Please wait...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span> -->
+                    </button>
+                </div>
+            </div>
+
+            <div class="fv-row mb-7">
+                <div id="kt_table_users_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                    <div class="table-responsive">
+                        <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_table_users">
+                            <thead>
+                                <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+                                    <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" aria-label="User: activate to sort column ascending" style="width: 275.844px;">
+                                        Nombre
+                                    </th>
+                                    <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" aria-label="Role: activate to sort column ascending" style="width: 161.469px;">
+                                        Color
+                                    </th>
+                                    <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" aria-label="Actions" style="width: 129.75px;">Actions</th></tr>
+                            </thead>
+                            <tbody class="text-gray-600 fw-semibold"> 
+                                <ng-container *ngFor="let propertie of properties">
+                                    <tr class="odd">
+                                        
+                                        <td>
+                                           <span>{{ propertie.name }}</span>                
+                                        </td>
+                                        <td>
+                                            <span *ngIf="propertie.code">{{ propertie.code }}</span>            
+                                        </td>
+                                        
+                                        <td class="text-end">
+                                            <a href="#" onclick="return false;" (click)="delete(propertie)" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                                                <i class="ki-duotone ki-trash fs-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                </a>
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                                   
+                            </tbody>
+                        </table>
+                    </div>
+                </div> 
+            </div>
+
+            <!--begin::Actions-->
+            <div class="text-center pt-15">
+                <button type="reset" class="btn btn-light me-3" (click)="modal.dismiss()">Cerrar</button>
+                
+            </div>
+            <!--end::Actions-->
+        </form>
+        <!--end::Form-->
+    </div>
+    <!--end::Modal body-->
+</div>
+<!--end::Modal content CREATE-->

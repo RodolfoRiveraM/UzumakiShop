@@ -1,0 +1,143 @@
+<div class="card">
+    <!--begin::Card body-->
+    <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
+    <div class="card-body border-top p-9">
+        <div class="row mb-6">
+            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                <label class="fw-semibold fs-6 py-2">Titulo: (*)</label>
+                <input type="text" name="title" [(ngModel)]="title" class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo:   The best note book collection 2023 ">
+            </div>
+            
+            <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                <label class="fw-semibold fs-6 py-2">Sku: (*)</label>
+                <input type="text" name="sku" [(ngModel)]="sku" 
+                class="form-control form-control-lg form-control-solid" 
+                placeholder="Por ejemplo:   ZDR456 ">
+            </div>
+                      
+        </div>
+        <div class="row mb-6">
+            <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                <label class="fw-semibold fs-6 py-2">Precio Pen: (*)</label>
+                <input type="number" name="price_pen" [(ngModel)]="price_pen" 
+                class="form-control form-control-lg form-control-solid" 
+                placeholder="Por ejemplo:   20 PEN  ">
+            </div>
+            
+            <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                <label class="fw-semibold fs-6 py-2">Precio Usd: (*)</label>
+                <input type="number" name="price_usd" [(ngModel)]="price_usd" 
+                class="form-control form-control-lg form-control-solid" 
+                placeholder="Por ejemplo:   20 USD ">
+            </div>
+            <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                <label class="fw-semibold fs-6 py-2">Marcas: *</label>
+                <select
+                        class="form-control form-select-solid fw-bolder"
+                        name="marca"
+                        placeholder="Selec. Marca"
+                        [(ngModel)]="marca_id"
+                    >
+                    <option value="">Selec.</option>
+                    <ng-container *ngFor="let item of marcas">
+                        <option [value]="item.id">{{ item.name }}</option>
+                    </ng-container>
+                    </select>     
+            </div>
+        </div>
+        <div class="row mb-6">
+            <div class="col-4">
+                <label class="fw-semibold fs-6 py-2">Departamento:(Primer Nivel *)</label>
+                <select
+                        class="form-control form-select-solid fw-bolder"
+                        name="departament"
+                        placeholder="Selec. Departamento"
+                        [(ngModel)]="categorie_first_id"
+                        (change)="changeDepartamento()"
+                    >
+                    <option value="">Selec.</option>
+                    <ng-container *ngFor="let item of categories_first">
+                        <option [value]="item.id">{{ item.name }}</option>
+                    </ng-container>
+                    </select>
+            </div>
+            <div class="col-4">
+                <label class="fw-semibold fs-6 py-2">Categoria:(Segundo Nivel (Opcional))</label>
+                <select
+                    class="form-control form-select-solid fw-bolder"
+                    name="categorie"
+                    placeholder="Selec. Categoria"
+                    [(ngModel)]="categorie_second_id"
+                    (change)="changeCategorie()"
+                >
+                    <option value="">Selec.</option>
+                    <ng-container *ngFor="let item of categories_seconds_backups">
+                        <option [value]="item.id">{{ item.name }}</option>
+                    </ng-container>
+                </select>
+            </div>
+            <div class="col-4">
+                <label class="fw-semibold fs-6 py-2">Sub Categoria:(Tercer Nivel (Opcional))</label>
+                <select
+                    class="form-control form-select-solid fw-bolder"
+                    name="categorie"
+                    placeholder="Selec. Categoria"
+                    [(ngModel)]="categorie_third_id"
+                >
+                    <option value="">Selec.</option>
+                    <ng-container *ngFor="let item of categories_thirds_backups">
+                        <option [value]="item.id">{{ item.name }}</option>
+                    </ng-container>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-6">
+            <div class="col-lg-4 col-md-4 col-sm-12 my-2">
+                <label class="fw-semibold fs-6 py-2">Word: (*)</label>
+                <input type="text" name="word" (keyup.enter)="addItems()" [(ngModel)]="word" 
+                class="form-control form-control-lg form-control-solid" 
+                placeholder="Por ejemplo:   XXXXX ">
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 my-2" *ngIf="!isShowMultiselect">
+                <label class="fw-semibold fs-6 py-2">Tags: </label>
+                <ng-multiselect-dropdown
+                    [placeholder]="'custom placeholder'"
+                    [settings]="dropdownSettings"
+                    [data]="dropdownList"
+                    [(ngModel)]="selectedItems"
+                    (onSelect)="onItemSelect($event)"
+                    (onSelectAll)="onSelectAll($event)"
+                >
+                </ng-multiselect-dropdown>
+            </div>
+        </div>
+        <div class="row mb-6">
+            <div class="col-lg-6 col-md-6 col-sm-12 my-2">
+                <label class="form-label">Sube tu imagen: (*)</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile"  accept=".jpeg, .bmp, .jpg, .png, .gif, .webp"  (change)="processFile($event)">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <div class="">
+                    <img class="img py-4" [src]="imagen_previsualiza" width="200" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="row mb-6">
+            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                <label class="fs-6 fw-semibold mb-2">Descripción: </label>
+                <ckeditor [data]="description" (change)="onChange($event)"></ckeditor>
+            </div>
+            <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                <label class="fs-6 fw-semibold mb-2">Resumen: </label>
+                <textarea class="form-control form-control-solid" rows="3" 
+                name="resumen" [(ngModel)]="resumen" placeholder="******"></textarea>
+            </div>
+        </div>
+        <div class="row mb-6">
+            <div class="col-3">
+                <button class="btn btn-primary" (click)="save()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./assets/sass/style.scss";
+// Replace above style with this css file to enable RTL styles
+// @import "./assets/css/style.rtl";
+@import './assets/sass/plugins.scss';
+// @import "./assets/css/style.rtl.css";
+@import "./assets/sass/style.angular.scss";
+
+// Keenicons - High quality and pixel perfect font icons available in 3 styles, duotone, outline and solid for Metronic elements
+@import "./assets/plugins/keenicons/duotone/style.css";
+@import "./assets/plugins/keenicons/outline/style.css";
+@import "./assets/plugins/keenicons/solid/style.css";
+
+// regular style toast
+@import 'ngx-toastr/toastr';
+// bootstrap style toast
+// or import a bootstrap 4 alert styled design (SASS ONLY)
+// should be after your bootstrap imports, it uses bs4 variables, mixins, functions
+// @import 'ngx-toastr/toastr-bs4-alert';
+// boostrap 5
+@import 'ngx-toastr/toastr-bs5-alert';
+
+.toast-success {
+    background-color: #d4ffd4 !important;
+}
+.toast-error {
+    background-color: #FFEEF3 !important;
+}
+.toast-info {
+    background-color: #b6e4ff !important;
+}
+.toast-warning {
+    background-color: #ffe1b6 !important;
+}

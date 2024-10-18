@@ -1,0 +1,185 @@
+<main>
+
+    <!-- breadcrumb area start -->
+    <section class="breadcrumb__area include-bg pt-95 pb-50" data-bg-color="#EFF1F5">
+       <div class="container">
+          <div class="row">
+             <div class="col-xxl-12">
+                <div class="breadcrumb__content p-relative z-index-1">
+                   <h3 class="breadcrumb__title">Compra</h3>
+                   <div class="breadcrumb__list">
+                      <span><a href="#">Home</a></span>
+                      <span>Compra</span>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>
+    <!-- breadcrumb area end -->
+
+    <!-- checkout area start -->
+    <section class="tp-checkout-area pb-120" data-bg-color="#EFF1F5">
+       <div class="container">
+          <div class="row">
+             <div class="col-lg-7">
+                <div class="tp-checkout-bill-area">
+                   <h3 class="tp-checkout-bill-title">Domicilio</h3>
+
+                   <div class="tp-checkout-bill-form">
+                      <form action="#">
+                         <div class="tp-checkout-bill-inner">
+                            <div class="row">
+                               <div class="col-md-6">
+                                  <div class="tp-checkout-input">
+                                     <label>Nombre <span>*</span></label>
+                                     <input type="text" name="nombre" [(ngModel)]="nombre" placeholder="Nombre">
+                                  </div>
+                               </div>
+                               <div class="col-md-6">
+                                  <div class="tp-checkout-input">
+                                     <label>Apellido <span>*</span></label>
+                                     <input type="text"  name="apellido" [(ngModel)]="apellido"  placeholder="Apellidos">
+                                  </div>
+                               </div>
+                               <div class="col-md-12">
+                                   <div class="tp-checkout-input">
+                                   <label>Estado</label>
+                                   <input type="text"  name="estado" [(ngModel)]="estado"  placeholder="">
+                                   </div>
+                               </div>
+                               <div class="col-md-12">
+                                <div class="tp-checkout-input">
+                                   <label>Municipio</label>
+                                   <input type="text" name="municipio" [(ngModel)]="municipio" placeholder="">
+                                </div>
+                             </div>
+                             <div class="col-md-6">
+                                <div class="tp-checkout-input">
+                                   <label>Codigo postal</label>
+                                   <input type="text" name="codigo" [(ngModel)]="codigo" placeholder="">
+                                </div>
+                             </div>
+                             <div class="col-md-12">
+                                <div class="tp-checkout-input">
+                                   <label>Localidad</label>
+                                   <input type="text" name="localidad" [(ngModel)]="localidad" placeholder="">
+                                </div>
+                             </div>
+                               <div class="col-md-12">
+                                  <div class="tp-checkout-input">
+                                     <label>Dirección</label>
+                                     <input type="text" name="address" [(ngModel)]="address" placeholder="Número de casa y nombre de la calle.">
+                                  </div>
+
+                                  <div class="tp-checkout-input">
+                                     <input type="text" name="street" [(ngModel)]="street" placeholder="Apartamento, suite, etc. (opcional)">
+                                  </div>
+                               </div>
+                               <div class="col-md-12">
+                                  <div class="tp-checkout-input">
+                                     <label>Telefono <span>*</span></label>
+                                     <input type="text" name="telefono" [(ngModel)]="telefono" placeholder="">
+                                  </div>
+                               </div>
+                               <div class="col-md-12">
+                                  <div class="tp-checkout-input">
+                                     <label>Correo <span>*</span></label>
+                                     <input type="email" name="email" [(ngModel)]="email" placeholder="">
+                                  </div>
+                               </div>
+                               <!-- <div class="col-md-12">
+                                  <div class="tp-checkout-option-wrapper">
+                                     <div class="tp-checkout-option">
+                                        <input id="create_free_account" type="checkbox">
+                                        <label for="create_free_account">Create an account?</label>
+                                     </div>
+                                     <div class="tp-checkout-option">
+                                        <input id="ship_to_diff_address" type="checkbox">
+                                        <label for="ship_to_diff_address">Ship to a different address?</label>
+                                     </div>
+                                  </div>
+                               </div> -->
+                               <div class="col-md-12">
+                                  <div class="tp-checkout-input">
+                                     <label>Notas</label>
+                                     <textarea [(ngModel)]="notas" name="notas" placeholder="Notas."></textarea>
+                                  </div>
+                               </div>
+                            </div>
+                         </div>
+                      </form>
+                   </div>
+                </div>
+             </div>
+             <div class="col-lg-5">
+                <!-- checkout place order -->
+                <div class="tp-checkout-place white-bg">
+                   <h3 class="tp-checkout-place-title">Tu orden</h3>
+
+                   <div class="tp-order-info-list">
+                      <ul>
+
+                         <!-- header -->
+                         <li class="tp-order-info-list-header">
+                            <h4>Producto</h4>
+                            <h4>Total</h4>
+                         </li>
+
+                         <!-- item list -->
+                         @for(cart of PRODUCTS;track cart.id){
+                             <li class="tp-order-info-list-desc">
+                                <p> <small>{{ cart.title }} </small> <span> x {{ cart.quantity }}</span></p>
+                                <span> <small style="display: flex;white-space: nowrap;">{{ cart.total }} {{ cart.currency }}</small> </span>
+                             </li>
+                         }
+                         
+
+                         <!-- subtotal -->
+                         <li class="tp-order-info-list-subtotal">
+                            <span>Subtotal</span>
+                            <span>{{ totalCarts }} {{ currency }}</span>
+                         </li>
+
+                         <!-- shipping -->
+                         <li class="tp-order-info-list-shipping">
+                            <span>Envío</span>
+                            <span>
+                                Costo: <span>$100.00 MXN</span>
+                            </span>
+                         </li>
+
+                         <!-- total -->
+                         <li class="tp-order-info-list-total">
+                            <span>Total</span>
+                            <span> {{ (totalCarts+100) }} {{ currency }}</span>
+                         </li>
+                      </ul>
+                   </div>
+                   <div class="tp-checkout-payment">
+                      <div class="tp-checkout-payment-item">
+                         <input type="radio" id="whatsapp" name="payment" >
+                         <label for="whatsapp" >Enviar mensaje por Whatsapp al cliente para la compra</label>
+                         <!-- <div class="tp-checkout-payment-desc cash-on-delivery">
+                            <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</p>
+                         </div> -->
+                         <div id="wallet_container"></div> 
+                      </div>
+                      <div class="tp-checkout-payment-item paypal-payment">
+                         <input type="radio" id="paypal" name="payment" checked>
+                         <label for="paypal">PayPal <img src="assets/img/icon/payment-option.png" alt=""> <a href="#">What is PayPal?</a></label>
+                        </div>
+                       <div #paypal ></div>
+                   </div>
+                   <div class="tp-checkout-btn-wrapper">
+                      <a class="tp-checkout-btn w-100" (click)="realizarCompra()">Realizar el pedido</a>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>
+    <!-- checkout area end -->
+
+
+ </main>

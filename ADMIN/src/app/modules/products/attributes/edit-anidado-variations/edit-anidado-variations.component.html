@@ -1,0 +1,146 @@
+<!--begin::Modal content CREATE-->
+<div class="modal-content">
+    <!--begin::Modal header-->
+    <div class="modal-header" id="kt_modal_add_user_header">
+        <!--begin::Modal title-->
+        <h2 class="fw-bolder">Edit {{ is_variation ? 'Variation' : 'Especification' }} : "{{ specification.attribute.name }}"</h2>
+        
+        <!--end::Modal title-->
+        <!--begin::Close-->
+        <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close" (click)="modal.dismiss()">
+            <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+            <span class="svg-icon svg-icon-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                    <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
+                </svg>
+            </span>
+            <!--end::Svg Icon-->
+        </div>
+        <!--end::Close-->
+    </div>
+    <!--end::Modal header-->
+    <!--begin::Modal body-->
+    <div class="modal-body scroll-y mx-5 my-7">
+        <!--begin::Form-->
+        <form id="kt_modal_add_user_form" class="form" action="#">
+             <!--begin::Scroll-->
+            <!-- <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px"> -->
+                <!--begin::Input group-->
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Formularios -->
+                        <div class="row align-items-center">
+                            <div class="col-6" *ngIf="!is_variation">
+                                <label class="fw-semibold fs-6 py-2">Atributos E.:(*)</label>
+                                <select
+                                        class="form-control form-select-solid fw-bolder"
+                                        name="specification_attribute_id"
+                                        placeholder="Selec. Atributo"
+                                        [(ngModel)]="specification_attribute_id"
+                                        (change)="changeSpecifications()"
+                                    >
+                                    <option value="">Selec.</option>
+                                    <ng-container *ngFor="let item of attributes_specifications">
+                                        <option [value]="item.id">{{ item.name }}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                            <div class="col-6" *ngIf="is_variation">
+                                <label class="fw-semibold fs-6 py-2">Atributos V.:(*) {{ variations_attribute_id }}</label>
+                                <select
+                                        class="form-control form-select-solid fw-bolder"
+                                        name="variations_attribute_id"
+                                        placeholder="Selec. Atributo"
+                                        [(ngModel)]="variations_attribute_id"
+                                        (change)="changeVariations()"
+                                    >
+                                    <option value="">Selec.</option>
+                                    <ng-container *ngFor="let item of attributes_variations">
+                                        <option [value]="item.id">{{ item.name }}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+
+                            <div class="col-6">
+                                <label class="fw-semibold fs-6 py-2">Campo: (*)</label>
+
+                                <ng-container *ngIf="type_attribute_specification == 1">
+                                    <!-- TEXTO -->
+                                    <input type="text" name="value_add" [(ngModel)]="value_add" 
+                                    class="form-control form-control-lg form-control-solid" 
+                                    placeholder="Por ejemplo:   The best note">
+                                </ng-container>
+                                <ng-container *ngIf="type_attribute_specification == 2">
+                                    <!-- NUMERO -->
+                                    <input type="number" name="value_add" [(ngModel)]="value_add" 
+                                    class="form-control form-control-lg form-control-solid" 
+                                    placeholder="Por ejemplo:   34566">
+                                </ng-container>
+                                <ng-container *ngIf="type_attribute_specification == 3">
+                                    <!-- SELECCIONABLE -->
+                                    <select
+                                        class="form-control form-select-solid fw-bolder"
+                                        name="departament"
+                                        [(ngModel)]="propertie_id"
+                                    >
+                                    <option value="">Selec.</option>
+                                    <ng-container *ngFor="let item of properties">
+                                        <option [value]="item.id">{{ item.name }}</option>
+                                    </ng-container>
+                                </select>
+                                </ng-container>
+                                <ng-container *ngIf="type_attribute_specification == 4">
+                                    <!-- MULTISELECCIONABLE -->
+                                    <ng-multiselect-dropdown
+                                        [placeholder]="'custom placeholder'"
+                                        [settings]="dropdownSettings"
+                                        [data]="dropdownList"
+                                        [ngModelOptions]="{standalone: true}"
+                                        [(ngModel)]="selectedItems"
+                                        (onSelect)="onItemSelect($event)"
+                                        (onSelectAll)="onSelectAll($event)"
+                                    >
+                                    </ng-multiselect-dropdown>
+                                </ng-container>
+
+                            </div>
+
+                            <div class="col-6" *ngIf="is_variation">
+                                <label class="fw-semibold fs-6 py-2">Agregar Precio:(Opcional)</label>
+                                <input type="number" name="precio_add" [(ngModel)]="precio_add" 
+                                    class="form-control form-control-lg form-control-solid" 
+                                    placeholder="Por ejemplo:   15">
+                            </div>
+                            <div class="col-6" *ngIf="is_variation">
+                                <label class="fw-semibold fs-6 py-2">Agregar Stock:(*)</label>
+                                <input type="number" name="stock_add" [(ngModel)]="stock_add" 
+                                    class="form-control form-control-lg form-control-solid" 
+                                    placeholder="Por ejemplo:   15">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <!-- </div> -->
+            <!--end::Scroll-->
+            
+
+            <!--begin::Actions-->
+            <div class="text-center pt-15">
+                <button type="reset" class="btn btn-light me-3" (click)="modal.dismiss()">Cerrar</button>
+                <button type="button" (click)="store()" class="btn btn-primary" data-kt-users-modal-action="submit">
+                    <span class="indicator-label">Actualizar</span>
+
+                    <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
+                    <!-- <span class="indicator-progress">Please wait...
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span> -->
+                </button>
+            </div>
+            <!--end::Actions-->
+        </form>
+        <!--end::Form-->
+    </div>
+    <!--end::Modal body-->
+</div>
+<!--end::Modal content CREATE-->

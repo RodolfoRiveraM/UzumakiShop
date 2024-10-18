@@ -1,0 +1,237 @@
+<div class="card">
+    <!--begin::Card header-->
+    <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
+    <div class="card-header border-0 pt-6" style="display: inline !important;">
+        <div class="row">
+            <div class="col-2">
+                <!--begin::Card title-->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-title">
+                            <!--begin::Search-->
+                            <div class="d-flex align-items-center position-relative my-1">
+                                <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+                                    <span class="path1"></span><span class="path2"></span></i>                
+                                <input type="text" (keyup.enter)="searchTo()" [(ngModel)]="search" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-13" placeholder="Search Orders">
+                            </div>
+                            <!--end::Search-->
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <select
+                            class="form-control form-select-solid fw-bolder"
+                            name="marca"
+                            placeholder="Selec. Marca"
+                            [(ngModel)]="marca_id"
+                        >
+                        <option value="">Selec. Marcas</option>
+                            <ng-container *ngFor="let item of marcas">
+                                <option [value]="item.id">{{ item.name }}</option>
+                            </ng-container>
+                        </select>     
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    
+                    <div class="col-4">
+                        <select
+                                class="form-control form-select-solid fw-bolder"
+                                name="departament"
+                                placeholder="Selec. Departamento"
+                                [(ngModel)]="categorie_first_id"
+                                (change)="changeDepartamento()"
+                            >
+                            <option value="">Selec. Departamento</option>
+                            <ng-container *ngFor="let item of categories_first">
+                                <option [value]="item.id">{{ item.name }}</option>
+                            </ng-container>
+                            </select>
+                    </div>
+                    <div class="col-4">
+                        <select
+                            class="form-control form-select-solid fw-bolder"
+                            name="categorie"
+                            placeholder="Selec. Categoria"
+                            [(ngModel)]="categorie_second_id"
+                            (change)="changeCategorie()"
+                        >
+                            <option value="">Selec. Categoria</option>
+                            <ng-container *ngFor="let item of categories_seconds_backups">
+                                <option [value]="item.id">{{ item.name }}</option>
+                            </ng-container>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <select
+                            class="form-control form-select-solid fw-bolder"
+                            name="categorie"
+                            placeholder="Selec. Categoria"
+                            [(ngModel)]="categorie_third_id"
+                        >
+                            <option value="">Selec. Subcategoria</option>
+                            <ng-container *ngFor="let item of categories_thirds_backups">
+                                <option [value]="item.id">{{ item.name }}</option>
+                            </ng-container>
+                        </select>
+                    </div>
+
+                    <div class="col-4 my-3">
+                        <div class="input-group input-group-solid">
+                            <input type="date"
+                            class="form-control form-control-lg form-control-solid"
+                            [(ngModel)]="start_date"
+                            />
+                          </div>
+                          <small>Fecha de inicio</small>
+                    </div>
+                    <div class="col-4 my-3">
+                        <div class="input-group input-group-solid">
+                            <input type="date"
+                            class="form-control form-control-lg form-control-solid"
+                            [(ngModel)]="end_date"
+                            />
+                          </div>
+                          <small>Fecha de fin</small>
+                    </div>
+
+                    <div class="col-4">
+                        <select
+                            class="form-control form-select-solid fw-bolder"
+                            name="method_payment"
+                            placeholder="Selec. Metodo"
+                            [(ngModel)]="method_payment"
+                        >
+                            <option value="">Selec. Metdo</option>
+                            <option value="PAYPAL">PAYPAL</option>
+                            <option value="MERCADOPAGO">MERCADOPAGO</option>
+                        </select>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-3">
+                <!--begin::Card toolbar-->
+                <div class="card-toolbar">
+                    <!--begin::Toolbar-->
+                    <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+                        <a (click)="searchTo()" class="btn btn-primary mx-2">
+                            <i class="ki-duotone ki-magnifier fs-2"><span class="path1"></span><span class="path2"></span></i> 
+                        </a>
+                        <a (click)="reset()" class="btn btn-dark mx-2">
+                            <i class="ki-duotone ki-disk fs-2"><span class="path1"></span><span class="path2"></span></i> 
+                        </a>
+
+                        <a (click)="export_sale_download()" class="btn btn-success mx-2">
+                            <i class="ki-duotone ki-folder-down fs-2"><span class="path1"></span><span class="path2"></span></i> 
+                        </a>
+                    </div>     
+                </div>
+                <!--end::Card toolbar-->
+            </div>
+        </div>
+        <!--begin::Card title-->
+
+    </div>
+    <!--end::Card header-->
+
+    <!--begin::Card body-->
+    <div class="card-body py-4">
+        <div id="kt_table_users_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+            <div class="table-responsive">
+                <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_table_users">
+                    <thead>
+                        <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" aria-label="User: activate to sort column ascending" style="width: 275.844px;">
+                               Cliente
+                            </th>
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" aria-label="Joined Date: activate to sort column ascending" style="width: 214.609px;">
+                               Metodo de pago
+                            </th>
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" aria-label="Role: activate to sort column ascending" style="width: 161.469px;">
+                                Tipo de Moneda Total
+                            </th>
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" aria-label="Role: activate to sort column ascending" style="width: 161.469px;">
+                               Total
+                            </th>
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" aria-label="Role: activate to sort column ascending" style="width: 161.469px;">
+                                N° de Transaccion
+                            </th>
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" aria-label="Role: activate to sort column ascending" style="width: 161.469px;">
+                                Fecha de registro
+                            </th>
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" aria-label="Last login: activate to sort column ascending" style="width: 161.469px;">
+                                Region/Ciudad/Pais
+                            </th>
+                            <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" aria-label="Actions" style="width: 129.75px;">Actions</th></tr>
+                    </thead>
+                    <tbody class="text-gray-600 fw-semibold"> 
+                        <ng-container *ngFor="let sale of sales">
+                            <tr class="odd">
+                                
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="symbol symbol-50px me-5" *ngIf="sale.user.avatar">
+                                            <img [src]="sale.user.avatar" class="" alt="">
+                                        </div>
+                                        
+                                        <div class="d-flex justify-content-start flex-column">
+                                            <a href="#" class="text-gray-900 fw-bold text-hover-primary mb-1 fs-6">{{ sale.user.full_name }}</a>
+                                            <span class="text-muted fw-semibold text-muted d-block fs-7">{{ sale.user.phone }}</span>
+                                        </div>
+                                    </div>                                
+                                </td>
+                                <td>
+                                    <span>
+                                        {{ sale.method_payment }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span>
+                                        {{ sale.currency_total }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span>
+                                        {{ sale.total }} {{ sale.currency_payment }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span>
+                                        {{ sale.n_transaccion }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span>
+                                        {{ sale.created_at }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span>
+                                        {{ sale.sale_address.country_region }} / {{ sale.sale_address.city }} / {{ sale.sale_address.company }}
+                                    </span>
+                                </td>
+                                
+                                <td class="text-end">
+
+                                    <a [href]="URL_SERVICIOST+'/sales/report-pdf/'+sale.id" target="_blank" class="btn btn-icon btn-bg-danger btn-active-color-danger btn-sm me-1">
+                                        <i class="ki-duotone ki-some-files fs-2"><span class="path1"></span><span class="path2"></span></i>                                </a>
+                                </td>
+                            </tr>
+                        </ng-container>
+                           
+                    </tbody>
+                </table>
+                <ngb-pagination
+                    [collectionSize]="totalPages"
+                    [(page)]="currentPage"
+                    [pageSize]="25"
+                    [rotate]="true"
+                    [boundaryLinks]="true"
+                    (pageChange)="loadPage($event)"
+                ></ngb-pagination>
+            </div>
+        </div> 
+    </div>
+</div>

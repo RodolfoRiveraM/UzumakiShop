@@ -1,0 +1,284 @@
+<div class="card">
+    <!--begin::Card body-->
+    <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
+    <div class="card-body border-top p-9">
+        <div class="row mb-6">
+            <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                <div class="row">
+                    <div class="col-12 my-2">
+                        <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6" [ngClass]="{'active': type_campaing == 1}" data-kt-button="true">
+                            <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                <input class="form-check-input" type="radio" (click)="changeTypeCampaing(1)" name="type_campaing" value="1" checked="checked">
+                            </span>
+                            <span class="ms-5">
+                                <span class="fs-6 fw-bolder mb-1 d-block">Campaña Normal</span>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="col-12 my-2">
+                        <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6" [ngClass]="{'active': type_campaing == 2}" data-kt-button="true">
+                            <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                <input class="form-check-input" type="radio" (click)="changeTypeCampaing(2)" name="type_campaing" value="2">
+                            </span>
+                            <span class="ms-5">
+                                <span class="fs-6 fw-bolder mb-1 d-block">Campaña Flash </span>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="col-12 my-2">
+                        <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6" [ngClass]="{'active': type_campaing == 3}" data-kt-button="true">
+                            <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                <input class="form-check-input" type="radio" (click)="changeTypeCampaing(3)" name="type_campaing" value="3">
+                            </span>
+                            <span class="ms-5">
+                                <span class="fs-6 fw-bolder mb-1 d-block">Campaña Link</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                <label class="fw-semibold fs-6 py-2">Gestión de descuento: (*)</label>
+                <div class="row">
+                    <div class="col-6">
+                        <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6" [ngClass]="{'active': type_discount == 1}" data-kt-button="true">
+                            <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                <input class="form-check-input" type="radio" (click)="changeTypeDiscount(1)" name="type_discount" value="1" checked="checked">
+                            </span>
+                            <span class="ms-5">
+                                <span class="fs-6 fw-bolder mb-1 d-block">Porcentaje</span>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="col-6">
+                        <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6" [ngClass]="{'active': type_discount == 2}" data-kt-button="true">
+                            <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                <input class="form-check-input" type="radio" (click)="changeTypeDiscount(2)" name="type_discount" value="2">
+                            </span>
+                            <span class="ms-5">
+                                <span class="fs-6 fw-bolder mb-1 d-block">Monto fijo</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>      
+            <div class="col-lg-3 fv-row fv-plugins-icon-container">
+                <label class="fw-semibold fs-6 py-2">Descuento: (*)</label>
+                <input type="number" name="discount" [(ngModel)]="discount" class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo:   50%">
+            </div>
+        </div>
+        <div class="row mb-6">
+            <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                <label class="fw-semibold fs-6 py-2">Gestión de fechas: (*)</label>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="input-group input-group-solid">
+                            <input type="date"
+                            class="form-control form-control-lg form-control-solid"
+                            [(ngModel)]="start_date"
+                            />
+                          </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="input-group input-group-solid">
+                            <input type="date"
+                            class="form-control form-control-lg form-control-solid"
+                            [(ngModel)]="end_date"
+                            />
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-6">
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-12 my-2">
+                        <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6" [ngClass]="{'active': discount_type == 1}" data-kt-button="true">
+                            <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                <input class="form-check-input" type="radio" (click)="changeTypeCupone(1)" name="discount_type" value="1" checked="checked">
+                            </span>
+                            <span class="ms-5">
+                                <span class="fs-6 fw-bolder mb-1 d-block">Productos</span>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="col-12 my-2">
+                        <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6" [ngClass]="{'active': discount_type == 2}" data-kt-button="true">
+                            <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                <input class="form-check-input" type="radio" (click)="changeTypeCupone(2)" name="discount_type" value="2">
+                            </span>
+                            <span class="ms-5">
+                                <span class="fs-6 fw-bolder mb-1 d-block">Categorias</span>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="col-12 my-2">
+                        <label class="btn btn-outline btn-outline-dashed btn-outline-default d-flex text-start p-6" [ngClass]="{'active': discount_type == 3}" data-kt-button="true">
+                            <span class="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
+                                <input class="form-check-input" type="radio" (click)="changeTypeCupone(3)" name="discount_type" value="3">
+                            </span>
+                            <span class="ms-5">
+                                <span class="fs-6 fw-bolder mb-1 d-block">Marcas</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="row align-items-start">
+                    <div class="col-12" *ngIf="discount_type == 1">
+                        <div class="row align-items-start">
+                            <div class="col-10">
+                                <label class="fw-semibold fs-6 py-2">Productos:(*)</label>
+                                <select
+                                        class="form-control form-select-solid fw-bolder"
+                                        name="product_id"
+                                        placeholder="Selec. Producto"
+                                        [(ngModel)]="product_id"
+                                    >
+                                    <option value="">Selec.</option>
+                                    <ng-container *ngFor="let item of products">
+                                        <option [value]="item.id">{{ item.title }}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                            <div class="col-2">
+                                <button class="btn btn-sm btn-success" (click)="addProduct()">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12" *ngIf="discount_type == 2">
+                        <div class="row">
+                            <div class="col-10">
+                                <label class="fw-semibold fs-6 py-2">Departamento:(Primer Nivel *)</label>
+                                <select
+                                        class="form-control form-select-solid fw-bolder"
+                                        name="categorie_id"
+                                        placeholder="Selec. Departamento"
+                                        [(ngModel)]="categorie_id"
+                                    >
+                                    <option value="">Selec.</option>
+                                    <ng-container *ngFor="let item of categories_first">
+                                        <option [value]="item.id">{{ item.name }}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                            <div class="col-2">
+                                <button class="btn btn-sm btn-success" (click)="addCategorie()">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12" *ngIf="discount_type == 3">
+                        <div class="row">
+                            <div class="col-10">
+                                <label class="fw-semibold fs-6 py-2">Marcas:(*)</label>
+                                <select
+                                        class="form-control form-select-solid fw-bolder"
+                                        name="brand_id"
+                                        placeholder="Selec. Marcas"
+                                        [(ngModel)]="brand_id"
+                                    >
+                                    <option value="">Selec.</option>
+                                    <ng-container *ngFor="let item of brands">
+                                        <option [value]="item.id">{{ item.name }}</option>
+                                    </ng-container>
+                                </select>
+                            </div>
+                            <div class="col-2">
+                                <button class="btn btn-sm btn-success" (click)="addBrand()">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-12" *ngIf="discount_type == 1">
+                        <div id="kt_table_users_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                            <div class="table-responsive w-100">
+                                <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_advance_table_widget_1">
+                                    <thead>
+                                        <tr class="text-left">
+                                            <th>IMAGEN</th>
+                                            <th>TITULO</th>
+                                            <th>ACCIÓN</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let product of products_add;let i=index">
+                                            <td>
+                                                <img [src]="product.imagen" width="60" alt="">
+                                            </td>
+                                            <td>{{ product.title }}</td>
+                                            <td>
+                                                <button class="ml-5 btn btn-sm btn-danger" (click)="removeProduct(product)">X</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12" *ngIf="discount_type == 2">
+                        <div id="kt_table_users_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                            <div class="table-responsive w-100">
+                                <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_advance_table_widget_1">
+                                    <thead>
+                                        <tr class="text-left">
+                                            <th>IMAGEN</th>
+                                            <th>NOMBRE DE LA CATEGORIA</th>
+                                            <th>ACCIÓN</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let categorie of categories_add;let i=index">
+                                            <td>
+                                                <img [src]="categorie.imagen" width="60" alt="">
+                                            </td>
+                                            <td>{{ categorie.name }}</td>
+                                            <td>
+                                                <button class="ml-5 btn btn-sm btn-danger" (click)="removeCategorie(categorie)">X</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12" *ngIf="discount_type == 3">
+                        <div id="kt_table_users_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                            <div class="table-responsive w-100">
+                                <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_advance_table_widget_1">
+                                    <thead>
+                                        <tr class="text-left">
+                                            <!-- <th>IMAGEN</th> -->
+                                            <th>NOMBRE DE LA MARCA</th>
+                                            <th>ACCIÓN</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let brand of brands_add;let i=index">
+                                            <!-- <td>
+                                                <img [src]="brand.imagen" width="60" alt="">
+                                            </td> -->
+                                            <td>{{ brand.name }}</td>
+                                            <td>
+                                                <button class="ml-5 btn btn-sm btn-danger" (click)="removeBrand(brand)">X</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-6">
+            <div class="col-3">
+                <button class="btn btn-primary" (click)="save()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

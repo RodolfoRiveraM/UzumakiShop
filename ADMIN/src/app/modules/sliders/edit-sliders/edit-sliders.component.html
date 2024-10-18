@@ -1,0 +1,85 @@
+<div class="card">
+    <!--begin::Card body-->
+    <span class="spinner-border spinner-border-sm align-middle ms-2" *ngIf="isLoading$ | async"></span>
+    <div class="card-body border-top p-9">
+        <div class="row mb-6">
+            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                <label class="fw-semibold fs-6 py-2">Titulo: (*)</label>
+                <input type="text" name="title" [(ngModel)]="title" class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo:   The best note book collection 2023 ">
+            </div>
+            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                <label class="fw-semibold fs-6 py-2">Label: (Opcional)</label>
+                <input type="text" name="label" [(ngModel)]="label" class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: Starting at 9900">
+            </div>
+
+            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                <label class="fw-semibold fs-6 py-2">Subtitulo: (*)</label>
+                <input type="text" name="subtitle" [(ngModel)]="subtitle" class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: Exclusive offer  9900">
+            </div>               
+        </div>
+        <div class="row mb-6">
+            <div class="col-lg-6 col-md-6 col-sm-12 my-2">
+                <label class="form-label">Sube tu imagen: (*)</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile"  accept=".jpeg, .bmp, .jpg, .png, .gif, .webp"  (change)="processFile($event)">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <div class="">
+                    <img class="img py-4" [src]="imagen_previsualiza" width="200" alt="">
+                </div>
+            </div>
+            <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                <div class="row">
+                    <div class="col-12">
+                        <label class="fw-semibold fs-6 py-2">Link: (Opcional)</label>
+                        <input type="text" name="link" [(ngModel)]="link" class="form-control form-control-lg form-control-solid" placeholder="Por ejemplo: http://dominio.com">
+                    </div>
+                    <div class="col-12" *ngIf="type_slider == 3">
+                        <label for="etiqueta_especial" class="required fw-bold fs-6 mb-2">Precio Original: </label>
+                        <input class="form-control" type="number" id="price_original" name="price_original" [(ngModel)]="price_original" />
+                    </div>
+                    <div class="col-12" *ngIf="type_slider == 3">
+                        <label for="etiqueta_especial" class="required fw-bold fs-6 mb-2">Precio Campaña: </label>
+                        <input class="form-control" type="number" id="price_campaing" name="price_campaing" [(ngModel)]="price_campaing" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                <label for="etiqueta_especial" class="required fw-bold fs-6 mb-2">Color: </label>
+                    <input class="form-control" type="color" id="color" name="color" [(ngModel)]="color" />
+            </div>
+            <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                <label class="required fw-bold fs-6 mb-2">Selec. un Tipo</label>
+                <select
+                    class="form-control form-select-solid fw-bolder"
+                    name="type_slider"
+                    placeholder="Select"
+                    [(ngModel)]="type_slider"
+                >
+                    <option value="1">Slider Principal</option>
+                    <option value="2">Slider Secundario</option>
+                    <option value="3">Slider por Productos</option>
+                </select>
+            </div>
+            <div class="col-lg-4">
+                <label class="fw-semibold fs-6 py-2">Status:( *)</label>
+                <select
+                        class="form-control form-select-solid fw-bolder"
+                        name="state"
+                        placeholder="Selec. Estado"
+                        [(ngModel)]="state"
+                    >
+                    <option value="1">Activo</option>
+                    <option value="2">Inactivo</option>
+                    </select>
+
+            </div>
+        </div>
+
+        <div class="row mb-6">
+            <div class="col-3">
+                <button class="btn btn-primary" (click)="save()">Actualizar</button>
+            </div>
+        </div>
+    </div>
+</div>

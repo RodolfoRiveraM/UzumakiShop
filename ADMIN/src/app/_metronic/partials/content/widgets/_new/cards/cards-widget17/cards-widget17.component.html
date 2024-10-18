@@ -1,0 +1,79 @@
+<!--begin::Card widget 17-->
+<div class="card card-flush" [ngClass]="cssClass">
+  <!--begin::Header-->
+  <div class="card-header pt-5">
+    <!--begin::Title-->
+    <div class="card-title d-flex flex-column">
+      <!--begin::Info-->
+      <div class="d-flex align-items-center">
+        <!--begin::Currency-->
+        <span class="fs-4 fw-semibold text-gray-500 me-1 align-self-start">PEN</span>
+        <!--end::Currency-->
+
+        <!--begin::Amount fs-2hx-->
+        <span class=" fw-bold text-gray-900 me-2 lh-1 ls-n2" style="font-size: x-large;">{{ sale_total_week }}</span>
+        <!--end::Amount-->
+
+        <!--begin::Badge-->
+        <ng-container *ngIf="percentageV >= 0">
+          <span class="badge badge-light-success fs-base">
+            <app-keenicon name="arrow-up" class="fs-5 text-success ms-n1"></app-keenicon>
+            {{ percentageV }}%
+          </span>
+        </ng-container>
+        <ng-container *ngIf="percentageV < 0">
+          <span class="badge badge-light-danger fs-base">
+            <app-keenicon name="arrow-up" class="fs-5 text-danger ms-n1"></app-keenicon>
+            {{ percentageV }}%
+          </span>
+        </ng-container>
+        <!--end::Badge-->
+      </div>
+      <!--end::Info-->
+
+      <!--begin::Subtitle-->
+      <span class="text-gray-500 pt-1 fw-semibold fs-6">Ventas X Semana</span>
+      <!--end::Subtitle-->
+    </div>
+    <!--end::Title-->
+  </div>
+  <!--end::Header-->
+
+  <!--begin::Card body-->
+  <div class="card-body pt-2 pb-4 d-flex flex-wrap align-items-center">
+    <!--begin::Chart-->
+    <div class="d-flex flex-center me-5 pt-2">
+      <div id="kt_card_widget_17_chart"
+        [ngStyle]="{'min-width': chartSize + 'px', 'min-height': chartSize + 'px'}"
+        [attr.data-kt-size]="chartSize"
+        [attr.data-kt-line]="chartLine">
+      </div>
+    </div>
+    <!--end::Chart-->
+
+    <!--begin::Labels-->
+    <div class="d-flex flex-column content-justify-center flex-row-fluid">
+      <!--begin::Label-->
+      <ng-container *ngFor="let categorie of categories">
+        <div class="d-flex fw-semibold align-items-center">
+          <!--begin::Bullet-->
+          <div class="bullet w-8px h-3px rounded-2 bg-success me-3"></div>
+          <!--end::Bullet-->
+  
+          <!--begin::Label-->
+          <div class="text-gray-500 flex-grow-1 me-4" style="width: 25px;">{{ categorie.categorie_name }}</div>
+          <!--end::Label-->
+  
+          <!--begin::Stats-->
+          <div class="fw-bolder text-gray-700 text-xxl-end">{{ categorie.categorie_total  }} PEN</div>
+          <!--end::Stats-->
+        </div>
+      </ng-container>
+      
+      <!--end::Label-->
+    </div>
+    <!--end::Labels-->
+  </div>
+  <!--end::Card body-->
+</div>
+<!--end::Card widget 17-->

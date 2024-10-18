@@ -1,0 +1,99 @@
+<main>
+
+    <!-- breadcrumb area start -->
+    <section class="breadcrumb__area include-bg pt-95 pb-50">
+       <div class="container">
+          <div class="row">
+             <div class="col-xxl-12">
+                <div class="breadcrumb__content p-relative z-index-1">
+                   <h3 class="breadcrumb__title">Favoritos</h3>
+                   <div class="breadcrumb__list">
+                      <span><a href="#">Home</a></span>
+                      <span>Favoritos</span>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </section>
+    <!-- breadcrumb area end -->
+
+
+   <!-- compare area start -->
+   <section class="tp-compare-area pb-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="tp-compare-table table-responsive text-center">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Producto</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Remove</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        @for(PRODUCT of PRODUCTS;track PRODUCT.id){
+                          <tr>
+                            <td>
+                                <div class="tp-compare-thumb">
+                                    <img [src]="PRODUCT.imagen" alt="">
+                                    <h4 class="tp-compare-product-title">
+                                        <a [routerLink]="'/producto/'+PRODUCT.slug">{{ PRODUCT.title }}</a>
+                                    </h4>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tp-compare-desc">
+                                    <p>{{ PRODUCT.resumen }}</p>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tp-compare-price">
+                                    @if(PRODUCT.discount_g){
+                                        <span class="old-price">{{ getTotalCurrency(PRODUCT) }} {{ currency }}</span>
+                                    }
+                                    <span>{{ getTotalPriceProduct(PRODUCT) }} {{ currency }}</span>
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="tp-compare-remove">
+                                    <button (click)="removeproduct(PRODUCT)"><i class="fal fa-trash-alt"></i></button>
+                                </div>
+                            </td>
+                          </tr>
+                        }
+                          <!-- <tr>
+                            <th>Specifications</th>
+
+                            @for(PRODUCT of PRODUCTS;track PRODUCT.id){
+                                <td>
+                                    @for(specification of PRODUCT.specifications;track specification.id){
+                                        <tr>
+                                           <td>{{ specification.attribute.name }}</td>
+
+                                           <td *ngIf="specification.propertie">{{ specification.propertie.name }}</td>
+
+                                           <td *ngIf="!specification.propertie">{{ specification.value_add }}</td>
+                                        </tr>
+                                    }
+                                </td>
+                            }
+                            
+
+                          </tr> -->
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- compare area end -->
+
+    
+
+ </main>
